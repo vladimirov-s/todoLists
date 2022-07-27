@@ -1,7 +1,7 @@
 import { pics, header, url } from "./constants.js";
-let allTasks = [];
+const allTasks = [];
 let valueInput = "";
-let input = null;
+const input = document.querySelector(".createTaskInp");
 
 const sortAllTask = () => {
   allTasks.sort((a, b) => {
@@ -10,28 +10,29 @@ const sortAllTask = () => {
 };
 
 window.onload = async () => {
-  const b1 = document.getElementById("rectangleButtAbove");
-  b1.onclick = () => {
-    da6avitNovbiyTask();
-  };
-  input = document.getElementById("inpCreator");
+  const buttonaddTask = document.querySelector(".addTask");
+  const deleteAll = document.querySelector("#deleteAll");
+  deleteAll.onclick = () => deleteAllTasks();
+  buttonaddTask.onclick = () => createTask();
   input.addEventListener("change", updateValue);
-  const response = await fetch(`${url}/allTasks`, {
+  const response = await fetch(`${url}/`, {
     method: "GET",
   });
   let result = await response.json();
-  allTasks = result.data;
+  result.forEach((element) => {
+    allTasks.push(element);
+  });
   render();
-  input.addEventListener("keyup", e => {
-    if (e.keyCode == 13) {
-      da6avitNovbiyTask();
+  input.addEventListener("keyup", (e) => {
+    if (e.keyCode === 13) {
+      createTask();
     }
   });
 };
 
-const da6avitNovbiyTask = async () => {
+const createTask = async () => {
   if (valueInput.trim()) {
-    const response = await fetch(`${url}/createTask`, {
+    const response = await fetch(`${url}/`, {
       method: "POST",
       headers: header,
       body: JSON.stringify({
@@ -40,23 +41,41 @@ const da6avitNovbiyTask = async () => {
       }),
     });
     const resukt = await response.json();
-    allTasks = resukt.data;
+    allTasks.push(resukt);
     valueInput = "";
     input.value = "";
     render();
   }
 };
 
-const deleteAllTasks = async () => {
-  const response = await fetch(`${url}/deleteAll`, {
+const deleteTask = async (index) => {
+  const response = await fetch(`${url}/${index}`, {
     method: "DELETE",
   });
   const result = await response.json();
-  allTasks = result.data;
+  allTasks.findIndex((element, index) => {
+    try {
+      if (element._id === result._id) {
+        allTasks.splice(index, 1);
+        render();
+      }
+    } catch (err) {
+      return;
+    }
+  });
+};
+
+const deleteAllTasks = async () => {
+  const response = await fetch(`${url}/`, {
+    method: "DELETE",
+  });
+  if (response.status === 200) {
+    allTasks.length = 0;
+  }
   render();
 };
 
-const updateValue = event => {
+const updateValue = (event) => {
   valueInput = event.target.value;
 };
 
@@ -64,7 +83,7 @@ const render = () => {
   sortAllTask();
   const content = document.getElementById("output");
   content.innerHTML = "";
-  allTasks.map((item, idx) => {
+  allTasks.forEach((item, idx) => {
     const { _id, isCheck, text } = item;
     const container = document.createElement("div");
     container.id = `id-${idx}`;
@@ -94,7 +113,7 @@ const render = () => {
     imageDeleteOneTask.title = "Delete";
     container.appendChild(imageDeleteOneTask);
     imageDeleteOneTask.onclick = () => {
-      deleteSomeTask(_id);
+      deleteTask(_id);
     };
     content.appendChild(container);
     imageEditTheTask.onclick = () => {
@@ -103,71 +122,67 @@ const render = () => {
   });
 };
 
-const deleteSomeTask = async index => {
-  const response = await fetch(`${url}/deleteTask?id=${index}`, {
-    method: "DELETE",
-  });
-  const result = await response.json();
-  allTasks = result.data;
-  render();
-};
-
-const changeCheckbox = elem => {
+const changeCheckbox = (elem) => {
   elem.isCheck = !elem.isCheck;
   saveEdit(elem);
 };
 
 const onClickEdit = async (container, idx, elem, oldText) => {
-  const buttontEdit = document.createElement("button");
+  const confirmEdit = document.createElement("button");
   const cancelButton = document.createElement("button");
   const editInput = document.createElement("input");
   editInput.id = `input-${idx}`;
   const wrapForEdit = document.createElement("div");
   wrapForEdit.classList.add("editTask");
   cancelButton.innerText = "Cancel";
-  buttontEdit.innerText = "Save";
+  confirmEdit.innerText = "Save";
   editInput.type = "text";
   editInput.value = oldText;
   editInput.title = "ESC для отмены, ENTER для ввода";
   editInput.placeholder = "Редактирование задачи";
   wrapForEdit.appendChild(editInput);
-  wrapForEdit.appendChild(buttontEdit);
+  wrapForEdit.appendChild(confirmEdit);
   wrapForEdit.appendChild(cancelButton);
   container.appendChild(wrapForEdit);
   editInput.focus();
-  editInput.onkeyup = e => {
+  editInput.onkeyup = (e) => {
     if (e.keyCode == 13) {
       elem.text = editInput.value;
       saveEdit(elem);
     }
   };
 
-  buttontEdit.onclick = () => {
+  confirmEdit.onclick = () => {
     if (editInput.value) {
       elem.text = editInput.value;
       saveEdit(elem);
     }
+    container.removeChild(wrapForEdit);
   };
+
   cancelButton.onclick = () => {
     container.removeChild(wrapForEdit);
   };
 };
 
-const saveEdit = async elem => {
+const saveEdit = async (elem) => {
   const { _id, text, isCheck } = elem;
-  if (elem.text) {
-    elem.text = text;
-  }
 
-  const response = await fetch(`${url}/updateTask`, {
+  const response = await fetch(`${url}/${_id}`, {
     method: "PATCH",
     headers: header,
-    body: JSON.stringify({ _id, text, isCheck }),
+    body: JSON.stringify({ text, isCheck }),
   });
 
   const res = await response.json();
-  if (Array.isArray(res.data)) {
-    allTasks = res.data;
-    render();
-  }
+  allTasks.findIndex((element, index) => {
+    try {
+      if (element._id === result._id) {
+        allTasks.splice(index, 1, res);
+      }
+    } catch (err) {
+      return;
+    }
+  });
+  render();
 };

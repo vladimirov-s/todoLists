@@ -1,26 +1,29 @@
 html {
-  background-color: #333333;
+  background-color: #555;
 }
 body {
   margin: 0;
 }
 svg {
+  max-height: 100%;
+  max-width: 100%;
   fill: wheat;
 }
 #container {
   color: #fff;
   text-align: center;
-  padding: 16px 0 32px 0;
   max-width: 1200px;
   min-width: 330px;
-  width: calc(100% - 16px);
+  width: calc(100% - 1rem);
   border-radius: 15px;
   box-shadow: 0 0 15px 1px #000;
   position: fixed;
   left: calc(50% - 600px);
+  margin-top: 1px;
+  height: calc(100vh - 3px);
 }
 #container input {
-  font-size: 19px;
+  font-size: 1.2rem;
   letter-spacing: 1px;
   line-height: 1.8;
   outline: 0;
@@ -28,7 +31,7 @@ svg {
   border: 1px solid #22222288;
 }
 #container button {
-  font-size: 20px;
+  font-size: 1.3rem;
   padding: 6px 7px;
   position: relative;
   top: 1px;
@@ -51,54 +54,49 @@ svg {
   align-items: flex-start;
   align-content: flex-start;
   justify-content: left;
-  font-size: 22px;
-  margin: 155px 0 0 0;
+  font-size: 1.4rem;
+  margin: 11rem 0 0 0;
   overflow-y: auto;
-  height: 757px;
 }
 .task {
-  flex: calc(20% - 32px);
+  flex: calc(20% - 2rem);
   position: relative;
   align-content: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 77px;
   flex-wrap: wrap;
-  max-width: calc(20% - 32px);
-  margin: 0 16px 32px 16px;
-  background-color: #404040;
+  max-width: calc(20% - 2rem);
+  margin: 0 1rem 2rem 1rem;
+  background-color: #7b7b7b;
   border-radius: 6px;
 }
 .task input[type=checkbox] {
   flex: 3%;
-  margin-right: 16px;
+  margin-right: 1rem;
 }
 .task input[type=text] {
-  max-width: calc(100% - 8px);
+  max-width: calc(100% - 0.7rem);
 }
 .task i {
   flex: 33%;
-  max-width: 25px;
+  max-width: 30px;
   position: relative;
   left: 5px;
   cursor: pointer;
-  padding: 4px;
+  padding: 4px 4px 0 4px;
   border-radius: 6px;
 }
 .task i:hover {
-  box-shadow: 0 0 15px 1px rgba(128, 128, 128, 0.211);
+  box-shadow: 0 0 15px 1px rgba(42, 41, 41, 0.751);
 }
 .editTask {
   border-radius: 6px;
   position: absolute;
   flex: 100%;
   max-width: 100%;
-  height: -webkit-fill-available;
-  background-color: #808080;
-}
-.posR {
-  position: relative;
+  top: -0.1rem;
+  background-color: #a2a2a2;
 }
 .red-text {
   color: red;
@@ -121,47 +119,35 @@ svg {
   color: #6e6e6e;
   text-decoration: line-through;
 }
-.none {
-  display: none !important;
-}
-#leftControl {
-  height: 0;
-  display: flex;
-  justify-content: start;
-}
 #deleteAll {
   height: 25px;
+  width: 25px;
   padding: 5px;
-  margin-top: 15px;
+  margin: 2px 0 0 5px;
   border-radius: 6px;
+  position: inherit;
   cursor: pointer;
 }
 #deleteAll:hover {
-  box-shadow: 0 0 15px 1px rgba(128, 128, 128, 0.211);
-}
-.control {
-  margin: 0 16px;
+  box-shadow: 0 0 15px 1px rgba(42, 41, 41, 0.751);
 }
 @media (max-width: 1200px) {
   #container {
-    left: 8px;
+    left: 0.5rem;
   }
 }
 @media (max-width: 900px) {
   .task {
     flex: 33%;
-    margin: 0 4px 16px 9px;
-    max-width: calc(31% - 2px);
+    margin: 0 0.3rem 1rem 0.6rem;
+    max-width: calc(31% - 0.1rem);
   }
 }
 @media (max-width: 750px) {
   .task {
     flex: 50%;
-    margin: 0 4px 7px 4px;
-    max-width: calc(50% - 8px);
-  }
-  .editTask input {
-    margin: 0 15px;
+    margin: 0 0.2rem 0.4rem 0.2rem;
+    max-width: calc(50% - 0.5rem);
   }
   .text-task {
     max-width: 85%;
@@ -171,7 +157,7 @@ svg {
 @media (max-width: 500px) {
   .task {
     flex: 50%;
-    margin: 0 4px 7px 4px;
+    margin: 0 0.2rem 0.4rem 0.2rem;
     max-width: 100%;
   }
   .text-task {

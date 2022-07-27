@@ -1,46 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <script type="module" src="js/script.js"></script>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>to-do-list/M3</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-    <link rel="stylesheet" href="style/style.css " />
-  </head>
-  <body>
-    <div id="container">
-      <span>old version</span>
-      <div id="header">
-        <h1>To-do-lists</h1>
-        <input
-          type="text"
-          id="inpCreator"
-          class="posR"
-          placeholder="Наименование задачи"
-          title="Создание новой задачи"
-        />
-        <button id="rectangleButtAbove" >
-          Add
-        </button>
-        <div class="control" id="leftControl">
-          <i
-            title="Удалить все задачи"
-            id="deleteAll"
-            onclick="deleteAllTasks()"
-            alt=""
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-              <path
-                d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"
-              />
-            </svg>
-          </i>
-        </div>
-        <h2>Output will be here</h2>
-      </div>
-      <div id="output"></div>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>to-do-list/M3</title>
+  <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
+  <link rel="stylesheet" href="style/style.css " />
+</head>
+
+<body>
+  <div id="container">
+    <div id="header">
+      <h1>To-do-lists</h1>
+      <input type="text" class="createTaskInp" placeholder="Наименование задачи" title="Создание новой задачи" />
+      <button class='addTask'>Add</button>
+      <i title="Удалить все задачи" id="deleteAll" alt="">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+          <path
+            d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z" />
+        </svg>
+      </i>
+      <h2>Output will be here</h2>
     </div>
-  </body>
+    <div id="output"></div>
+  </div>
+  <script type="module" src="js/script.js"></script>
+</body>
+
 </html>
